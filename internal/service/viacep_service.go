@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -28,6 +30,7 @@ type ViaCepResponse struct {
 
 type ViaCepService struct {
 	client *http.Client
+	logger *log.Logger
 }
 
 var (
@@ -35,13 +38,17 @@ var (
 )
 
 func NewViaCepService() *ViaCepService {
-	return &ViaCepService{client: &http.Client{}}
+	return &ViaCepService{
+		client: &http.Client{},
+		logger: log.New(os.Stdout, "ViaCepService: ", log.LstdFlags),
+	}
 }
 
 func (v *ViaCepService) GetAddressByCep(ctx context.Context, cep string) (*ViaCepResponse, error) {
 	cep = strings.ReplaceAll(cep, "-", "")
 	url := "https://viacep.com.br/ws/" + cep + "/json"
 
+	log.Println("Requesting data from viacep: ", url)
 	request, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err

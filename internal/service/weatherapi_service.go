@@ -6,8 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 type WeatherService interface {
@@ -17,6 +19,7 @@ type WeatherService interface {
 type WeatherApiService struct {
 	apiKey string
 	client *http.Client
+	logger *log.Logger
 }
 
 type WeatherApiResponse struct {
@@ -39,6 +42,7 @@ func NewWeatherApiService(apiKey string) *WeatherApiService {
 	return &WeatherApiService{
 		client: &http.Client{},
 		apiKey: apiKey,
+		logger: log.New(os.Stdout, "weatherapi_service: ", log.LstdFlags),
 	}
 }
 
@@ -50,6 +54,7 @@ func (w *WeatherApiService) GetWeatherByCity(ctx context.Context, city string) (
 	queryParams.Add("key", w.apiKey)
 	url := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?%s", queryParams.Encode())
 
+	log.Println("Requesting weather data from weatherapi.com: ", url)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err

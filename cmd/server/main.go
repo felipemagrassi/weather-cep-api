@@ -12,11 +12,7 @@ import (
 
 func main() {
 	godotenv.Load(".env")
-
-	weatherApiKey, ok := os.LookupEnv("WEATHER_API_KEY")
-	if !ok {
-		weatherApiKey = ""
-	}
+	weatherApiKey := os.Getenv("WEATHER_API_KEY")
 
 	weather_service := service.NewWeatherApiService(weatherApiKey)
 	cep_service := service.NewViaCepService()
