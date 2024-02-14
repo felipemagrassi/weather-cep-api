@@ -2,25 +2,24 @@
 
 This API is a simple weather API that returns the temperature of a city by receiving a CEP (Brazilian Zip Code) as a parameter.
 
-
 ## Usage
 
-
-1. Run the API and pass the WeatherAPI key as an environment variable.
+1. Run locally with docker-compose
 ```bash
-docker build -t weather-cep-api .
-docker run --rm  \
-    -p 8080:8080 \
-    -e WEATHER_API_KEY=<API_KEY> \
-    weather-cep-api
+docker compose up
 ```
 
 2. Add the CEP as a parameter in the URL and the API will return the temperature of the city.
-```http
-curl http://localhost:8080/?cep=10010-000
+```bash
+curl "http://localhost:8080/?cep=10010-000"
 ```
 
-## Demo
+## Using in production
+
+Run `cp .env.sample .env` and fill the environment variables with your own values or 
+create a `.env` file with an environment variable called `WEATHER_API_KEY` with your Weather API key (https://www.weatherapi.com/)
+
+## Demo in Google Cloud Run
 
 * With valid cep
 https://weather-cep-api-zj3c47ztra-uc.a.run.app/?cep=20561-250
