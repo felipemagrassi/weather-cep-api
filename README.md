@@ -17,3 +17,11 @@ curl http://localhost:8080/?cep=10010-000
 
 ## Demo
 
+* With valid cep
+https://weather-cep-api-zj3c47ztra-uc.a.run.app/?cep=20561-250
+
+* With invalid cep
+https://weather-cep-api-zj3c47ztra-uc.a.run.app/?cep=
+
+* With not found cep 
+https://weather-cep-api-zj3c47ztra-uc.a.run.app/?cep=11111-111
