@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -35,6 +36,7 @@ func (h *GetTemperatureHandler) Handle(w http.ResponseWriter, r *http.Request) {
 
 	output, err := h.getTemperatureFromCep.Execute(r.Context(), input)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte(`can not find zipcode`))
 		return
