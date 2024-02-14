@@ -5,9 +5,14 @@ This API is a simple weather API that returns the temperature of a city by recei
 
 ## Usage
 
-1. Add your `weatherapi.com` API key to the `.env` file 
-```env
-WEATHER_API_KEY=your_api_key
+
+1. Run the API and pass the WeatherAPI key as an environment variable.
+```bash
+docker build -t weather-cep-api .
+docker run --rm  \
+    -p 8080:8080 \
+    -e WEATHER_API_KEY=<API_KEY> \
+    weather-cep-api
 ```
 
 2. Add the CEP as a parameter in the URL and the API will return the temperature of the city.
