@@ -39,6 +39,10 @@ type WeatherResponse struct {
 }
 
 func NewWeatherApiService(apiKey string) *WeatherApiService {
+	if apiKey == "" {
+		log.Println("Initializing weatherapi service without apiKey")
+	}
+
 	return &WeatherApiService{
 		client: &http.Client{},
 		apiKey: apiKey,
@@ -54,7 +58,7 @@ func (w *WeatherApiService) GetWeatherByCity(ctx context.Context, city string) (
 	queryParams.Add("key", w.apiKey)
 	url := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?%s", queryParams.Encode())
 
-	log.Println("Requesting weather data from weatherapi.com: ", url)
+	log.Println("Requesting weather data from weatherapi.com:")
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
