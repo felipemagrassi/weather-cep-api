@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -20,5 +21,6 @@ func main() {
 	getTemperatureHandler := handler.NewGetTemperatureHandler(getTemperatureFromCepUseCase)
 
 	http.HandleFunc("/", getTemperatureHandler.Handle)
+	fmt.Println("Server running at 8080")
 	http.ListenAndServe(":8080", nil)
 }

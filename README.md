@@ -6,7 +6,7 @@ This API is a simple weather API that returns the temperature of a city by recei
 
 1. Run locally with docker-compose
 ```bash
-docker compose up
+docker compose up --build
 ```
 
 2. Add the CEP as a parameter in the URL and the API will return the temperature of the city.
@@ -18,6 +18,12 @@ curl "http://localhost:8080/?cep=10010-000"
 
 Run `cp .env.sample .env` and fill the environment variables with your own values or 
 create a `.env` file with an environment variable called `WEATHER_API_KEY` with your Weather API key (https://www.weatherapi.com/)
+
+1. To run the docker compose production file: 
+
+```bash 
+docker compose -f docker-compose.prod.yml up
+```
 
 ## Demo in Google Cloud Run
 
